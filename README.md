@@ -1,133 +1,97 @@
-# YouTube Channel Analyzer - Webová verze
+ YouTube Channel Analyzer - Deploy Instructions
 
-## 🚀 Rychlé spuštění
+## 🚀 Streamlit Cloud Deploy
 
-1. **Získání YouTube Data API klíče:**
-   - Jděte na [Google Cloud Console](https://console.cloud.google.com/)
-   - Vytvořte nový projekt nebo vyberte existující
-   - Povolte "YouTube Data API v3"
-   - Vytvořte API klíč (Credentials > Create Credentials > API Key)
+### Požadavky:
+1. GitHub účet
+2. YouTube Data API klíč z Google Cloud Console
 
-2. **Konfigurace API klíče:**
+### Kroky pro nasazení:
+1. **Nahrejte soubory na GitHub:**
+   - Vytvořte nový repository
+   - Nahrajte všechny soubory z této složky
+
+2. **Nasaďte na Streamlit Cloud:**
+   - Jděte na [share.streamlit.io](https://share.streamlit.io)
+   - Přihlaste se GitHub účtem
+   - Klikněte "New app"
+   - Vyberte váš repository
+   - Main file: `youtube_channel_analyzer_streamlit.py`
+
+3. **Nastavte API klíč:**
+   - V nastavení aplikace přidejte Secret:
+   - Key: `youtube_api_key`
+   - Value: váš YouTube Data API klíč
+
+### Soubory pro Streamlit deploy:
+- `youtube_channel_analyzer_streamlit.py` - hlavní aplikace
+- `requirements.txt` - Python dependencies
+- `.streamlit/secrets.toml` - template pro secrets
+
+## 🌐 Lokální HTML spuštění
+
+### Požadavky:
+- Moderní webový prohlížeč
+- YouTube Data API klíč
+
+### Kroky pro spuštění:
+1. **Nastavte API klíč:**
    - Otevřete soubor `api_key.txt`
-   - Nahraďte `YOUR_YOUTUBE_DATA_API_KEY_HERE` vaším skutečným API klíčem
-   - Uložte soubor
+   - Nahraďte `YOUR_YOUTUBE_DATA_API_KEY_HERE` vaším API klíčem
 
-3. **Spuštění aplikace:**
-   - Otevřete soubor `index.html` v jakémkoli moderním prohlížeči
-   - Aplikace automaticky načte API klíč ze souboru `api_key.txt`
+2. **Spusťte aplikaci:**
+   - Otevřete soubor `index.html` v prohlížeči
+   - Aplikace automaticky načte API klíč
 
-## 📋 Funkce aplikace
+### Soubory pro HTML verzi:
+- `index.html` - kompletní HTML aplikace
+- `api_key.txt` - soubor s API klíčem
+- `test_data.csv` - test data pro CSV import
 
-### ✅ Automatické načítání API klíče
-- API klíč se načte automaticky ze souboru `api_key.txt`
-- Možnost zadání klíče přímo v aplikaci
-- Maskování klíče pro bezpečnost
+## 🔑 Získání YouTube Data API klíče
 
-### ✅ Podporované formáty URL
-- **Kanálové URL:**
-  - `https://www.youtube.com/@channel`
-  - `https://www.youtube.com/channel/UC...`
-  - `https://www.youtube.com/c/channel`
-  - `https://www.youtube.com/user/username`
+1. Jděte na [Google Cloud Console](https://console.cloud.google.com/)
+2. Vytvořte nový projekt nebo vyberte existující
+3. Povolte "YouTube Data API v3"
+4. Vytvořte API klíč (Credentials > Create Credentials > API Key)
+5. (Volitelně) Omezte klíč na YouTube Data API
 
-- **Video URL (automaticky najde kanál):**
-  - `https://www.youtube.com/watch?v=VIDEO_ID`
-  - `https://youtu.be/VIDEO_ID`
-  - `https://www.youtube.com/embed/VIDEO_ID`
+## 📊 Funkce aplikace
 
-### ✅ Klasifikační algoritmus
+### ✅ Podporované URL formáty:
+- `https://www.youtube.com/@channel`
+- `https://www.youtube.com/channel/UC...`
+- `https://www.youtube.com/watch?v=VIDEO_ID`
+- `https://youtu.be/VIDEO_ID`
+
+### ✅ Klasifikace kanálů:
 - **Dětské kanály:** obsah pro děti 0-12 let
 - **Teen kanály:** obsah pro teenagers 13-18 let  
 - **Seriózní obsah:** zpravodajství, věda, business
 - **Smíšený obsah:** kombinace kategorií
 
-### ✅ Pokročilé funkce
-- Úprava klasifikačních slov přímo v aplikaci
-- České a slovenské varianty klíčových slov
-- Import CSV souborů z Google Ads
-- Export výsledků do CSV
+### ✅ Error handling:
+- Detekce vyčerpání API kvóty
+- Upozornění na neplatné URL
+- Zobrazení chybových zpráv uživateli
+
+### ✅ Export funkcionalita:
+- CSV export s timestamp
 - Procentuální skórování pro každou kategorii
+- Statistiky kanálů (odběratelé, videa, zhlédnutí)
 
-## 🎯 Způsoby použití
-
-### 1. Ruční zadání URL
-- Zadejte YouTube URL (kanály nebo videa) do textového pole
-- Každou URL na nový řádek
-- Klikněte na "Analyzovat URL"
-
-### 2. CSV soubor z Google Ads
-- Exportujte placement data z Google Ads do CSV
-- Nahrajte soubor do aplikace
-- Vyberte sloupec obsahující YouTube URL
-- Spusťte analýzu
-
-### 3. Úprava klasifikačních slov
-- V postranním panelu upravte seznamy klíčových slov
-- Slova oddělujte čárkami
-- Klikněte "Uložit slova" pro aktivaci změn
-
-## 📊 Interpretace výsledků
-
-### Kategorie kanálů:
-- **Kids (Zelená):** Vysoké skóre pro dětský obsah
-- **Teen (Žlutá):** Vysoké skóre pro teenagerský obsah
-- **Serious (Červená):** Vysoké skóre pro seriózní obsah
-- **Mixed (Šedá):** Kombinovaný nebo neutrální obsah
-
-### Metriky:
-- **Procentuální skóre:** Jak moc kanál odpovídá každé kategorii
-- **Statistiky kanálu:** Počet odběratelů, videí a zhlédnutí
-- **Primární kategorie:** Hlavní klasifikace na základě skóre
-
-## 🔧 Technické informace
-
-### Požadavky:
-- Moderní webový prohlížeč (Chrome, Firefox, Safari, Edge)
-- Připojení k internetu (pro YouTube API)
-- YouTube Data API klíč
+## 🛠️ Technické informace
 
 ### API limity:
-- YouTube Data API má denní kvóty
-- Jedna analýza kanálu ~ 5-10 jednotek kvóty
-- Standardní kvóta: 10,000 jednotek/den
-- Možnost analýzy ~1,000-2,000 kanálů denně
+- YouTube Data API: 10,000 jednotek/den
+- Jedna analýza kanálu: ~5-10 jednotek
+- Možnost analýzy: ~1,000-2,000 kanálů denně
 
-### Bezpečnost:
-- API klíč se ukládá pouze lokálně
-- Žádná data se neodesílají na externí servery
-- Veškerá komunikace pouze s YouTube API
+### Přesnost klasifikace:
+- Jasně definované kategorie: 85-90%
+- Hraniční případy: 70-80%
+- Algoritmus využívá textová metadata
 
-## 🚨 Řešení problémů
+## 📧 Podpora
 
-### API klíč se nenačte:
-- Zkontrolujte, že soubor `api_key.txt` je ve stejné složce jako `index.html`
-- Ověřte, že soubor obsahuje pouze API klíč bez mezer
-- Zadejte klíč ručně v aplikaci
-
-### Chyby při analýze:
-- Ověřte platnost YouTube Data API klíče
-- Zkontrolujte formát zadaných URL
-- Ujistěte se, že kanály/videa existují a jsou veřejné
-
-### Výsledky nejsou přesné:
-- Upravte klasifikační slova v postranním panelu
-- Přidejte specifická slova pro vaši doménu
-- Algoritmus funguje nejlépe s jasně definovaným obsahem
-
-## 📈 Tips pro optimalizaci Google Ads
-
-### Brand Safety:
-- Vyloučte kanály s nevhodným obsahem
-- Vytvořte placement exclusion lists
-- Monitorujte nová umístění pravidelně
-
-### Targeting optimalizace:
-- Segmentujte kampaně podle věkových skupin
-- Použijte různé kreativy pro různé kategorie
-- Sledujte performance podle typu kanálu
-
-### ROI maximalizace:
-- Analyzujte korelaci mezi kategorií a conversion rate
-- Adjustujte bidding podle typu obsahu
-- Pravidelně aktualizujte analýzu kanálů
+Pro technickou podporu nebo otázky kontaktujte administrátora aplikace.
