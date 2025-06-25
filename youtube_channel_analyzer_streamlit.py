@@ -25,7 +25,7 @@ class YouTubeAnalyzer:
             (r'youtube\.com/channel/([a-zA-Z0-9_-]+)', 'channel'),
             (r'youtube\.com/c/([a-zA-Z0-9_-]+)', 'username'),
             (r'youtube\.com/user/([a-zA-Z0-9_-]+)', 'username'),
-            (r'youtube\.com/@([a-zA-Z0-9_-]+)', 'handle'),
+            (r'youtube\.com/@([a-zA-Z0-9_-]+)', 'channel'),
             (r'youtube\.com/watch\?v=([a-zA-Z0-9_-]+)', 'video'),
             (r'youtu\.be/([a-zA-Z0-9_-]+)', 'video'),
             (r'youtube\.com/embed/([a-zA-Z0-9_-]+)', 'video')
